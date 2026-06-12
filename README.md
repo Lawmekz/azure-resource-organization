@@ -68,13 +68,42 @@ Resources are grouped by **environment** and **lifecycle**:
 | Team C (Security) | Subscription | Security Reader |
 
 ---
-
-## Project Tasks Progress
-
+all tasks are done:
 - [x] Task 1 - Naming Convention Designed
-- [ ] Task 2 - Resource Groups Created
-- [ ] Task 3 - Resources Deployed
-- [ ] Task 4 - Tagging Applied
-- [ ] Task 5 - RBAC Configured
-- [ ] Task 6 - Lifecycle Management Tested
+- [x] Task 2 - Resource Groups Created
+- [x] Task 3 - Resources Deployed
+- [x] Task 4 - Tagging Applied
+- [x] Task 5 - RBAC Configured
+- [x] Task 6 - Lifecycle Management Tested
 - [ ] Task 7 - IaC Automation (Optional)
+---
+
+## Azure Management Hierarchy
+
+Azure organizes resources in a 4-level hierarchy where policies and RBAC
+permissions inherit downward from parent to child scopes:
+
+```
+Management Group
+└── Subscription (sub-learning-dev-001)
+    ├── Resource Group: rg-webapp-dev-eastus-001
+    │   └── Storage Account: stwebappdeveastusaj1
+    ├── Resource Group: rg-webapp-prod-eastus-001
+    │   └── Storage Account: stwebappprodeastusaj1
+    └── Resource Group: rg-shared-services-eastus-001
+        └── Storage Account: stwebappsharedeastusaj1
+```
+
+### Level Descriptions
+
+| Level | Purpose |
+|-------|---------|
+| Management Group | Top-level governance across multiple subscriptions |
+| Subscription | Billing boundary and policy enforcement scope |
+| Resource Group | Lifecycle management and access control boundary |
+| Resource | Individual cloud service (VM, Storage, Database etc.) |
+
+### Inheritance
+RBAC roles and Azure Policies assigned at a higher level automatically
+apply to all resources below. For example, a Reader role on a Resource
+Group gives read access to every resource inside it.
